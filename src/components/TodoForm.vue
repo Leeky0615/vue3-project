@@ -8,17 +8,11 @@
   >
     <div class="row">
       <div class="col-6">
-        <div class="form-group">
-          <label>Todo Subject</label>
-          <input
-              v-model="todo.subject"
-              type="text"
-              class="form-control"
-          >
-          <div v-if="subjectError" class="text-red">
-            {{subjectError}}
-          </div>
-        </div>
+        <Input
+            label="Subject"
+            v-model="todo.subject"
+            :error="subjectError"
+        />
       </div>
       <div class="col-6">
         <div v-if="editing" class="form-group">
@@ -72,13 +66,15 @@
 <script>
 import {useRoute, useRouter} from 'vue-router';
 import axios from "axios";
-import {ref, computed} from "vue";
+import {ref, computed, onUpdated} from "vue";
 import _ from 'lodash';
 import Toast from "@/components/Toast";
 import {useToast} from "@/composables/toast";
+import Input from '@/components/Input';
 
 export default {
   components: {
+    Input,
     Toast
   },
   props: {
@@ -88,7 +84,6 @@ export default {
     }
   },
   setup(props) {
-
     const route = useRoute();
     const router = useRouter();
     const todo = ref({
@@ -96,6 +91,9 @@ export default {
       completed: false,
       body: ''
     });
+    onUpdated(()=>{
+      console.log(todo.value.subject);
+    })
     const subjectError = ref('');
     const originalTodo = ref(null);
     const loading = ref(false);
@@ -178,7 +176,7 @@ export default {
       showToast,
       toastMessage,
       toastAlertType,
-      subjectError
+      subjectError,
     }
   },
 }
