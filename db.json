@@ -3,7 +3,7 @@
     {
       "subject": "ㅁㄴㅇㅁㄴㅇ",
       "completed": false,
-      "id": 2
+      "id": 1
     },
     {
       "subject": "1",
@@ -56,29 +56,9 @@
       "id": 12
     },
     {
-      "subject": "11",
-      "completed": false,
+      "subject": "ㅁㄴㅇㅈㅇㅈㅇㅈ",
+      "completed": true,
       "id": 13
-    },
-    {
-      "subject": "12",
-      "completed": false,
-      "id": 14
-    },
-    {
-      "subject": "13",
-      "completed": false,
-      "id": 15
-    },
-    {
-      "subject": "14",
-      "completed": false,
-      "id": 16
-    },
-    {
-      "subject": "15",
-      "completed": false,
-      "id": 17
     }
   ]
 }

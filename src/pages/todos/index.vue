@@ -1,6 +1,6 @@
 <template>
 <router-view />
-  <div class="container">
+  <div>
     <h2>To-Do List</h2>
      <input 
         class="form-control"
@@ -91,14 +91,14 @@ export default {
         error.value = 'Something went wrong!'
       }
     }
-    const toggleTodo = async (index) =>{
+    const toggleTodo = async (index, checked) =>{
       error.value = ''
       const id = todos.value[index].id;
       try{
         await axios.patch("http://localhost:3000/todos/" +id,{
           completed: !todos.value[index].completed
         });
-        todos.value[index].completed = !todos.value[index].completed
+        todos.value[index].completed = checked
       }catch(err){
         console.log(err);
         error.value = 'Somthing went wrong'
@@ -143,7 +143,6 @@ export default {
       deleteTodo,
       searchText,
       searchTodo,
-      // filteredTodos,
       numberOfPages,
       currentPage
     }
