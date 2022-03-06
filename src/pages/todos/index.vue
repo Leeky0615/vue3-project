@@ -120,11 +120,10 @@ export default {
         triggerToast('Something went wrong..', 'danger');
       }
     }
-    const deleteTodo = async (index) => {
-      const id = todos.value[index].id;
+    const deleteTodo = async (id) => {
       try {
-        await axios.delete("http://localhost:3000/todos/" + id);
-        await getTodos(1);
+        await axios.delete(`http://localhost:3000/todos/${id}`);
+        getTodos(1);
       } catch (err) {
         console.log(err)
         triggerToast('Something went wrong..', 'danger');
