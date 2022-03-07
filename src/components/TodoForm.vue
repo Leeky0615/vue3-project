@@ -66,7 +66,7 @@
 <script>
 import {useRoute, useRouter} from 'vue-router';
 import axios from "axios";
-import {ref, computed, onUpdated} from "vue";
+import {ref, computed, onUpdated, getCurrentInstance} from "vue";
 import _ from 'lodash';
 import Toast from "@/components/Toast";
 import {useToast} from "@/composables/toast";
@@ -83,7 +83,8 @@ export default {
       default: false
     }
   },
-  setup(props) {
+  setup() {
+    const props = getCurrentInstance();
     const route = useRoute();
     const router = useRouter();
     const todo = ref({
