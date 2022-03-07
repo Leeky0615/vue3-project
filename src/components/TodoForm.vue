@@ -65,8 +65,8 @@
 </template>
 <script>
 import {useRoute, useRouter} from 'vue-router';
-import axios from "axios";
-import {ref, computed, onUpdated, getCurrentInstance} from "vue";
+import axios from '@/axios';
+import {ref, computed, onUpdated} from "vue";
 import _ from 'lodash';
 import Toast from "@/components/Toast";
 import {useToast} from "@/composables/toast";
@@ -83,8 +83,7 @@ export default {
       default: false
     }
   },
-  setup() {
-    const props = getCurrentInstance();
+  setup(props) {
     const route = useRoute();
     const router = useRouter();
     const todo = ref({
@@ -109,7 +108,7 @@ export default {
     const getTodo = async () => {
       loading.value = true;
       try {
-        const res = await axios.get(`http://localhost:3000/todos/${todoId}`);
+        const res = await axios.get(`todos/${todoId}`);
         todo.value = {...res.data};
         originalTodo.value = {...res.data};
         loading.value = false;
@@ -151,10 +150,10 @@ export default {
         };
         let message = 'Saved !';
         if(props.editing){
-          res = await axios.put(`http://localhost:3000/todos/${todoId}`, data);
+          res = await axios.put(`todos/${todoId}`, data);
           originalTodo.value = {...res.data}
         }else {
-          await axios.post('http://localhost:3000/todos/', data);
+          await axios.post('todos', data);
           message = 'Created'
           todo.value.subject = '';
           todo.value.body = '';
