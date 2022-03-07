@@ -43,25 +43,18 @@
       </ul>
     </nav>
   </div>
-  <Toast
-      v-if="showToast"
-      :message="toastMessage"
-      :type="toastAlertType"
-  />
 </template>
 
 <script>
 import {computed, ref, watch} from 'vue';
 import TodoList from '@/components/TodoList.vue'
 import axios from '@/axios';
-import Toast from "@/components/Toast";
 import {useToast} from "../../composables/toast";
 import {useRouter} from "vue-router";
 
 export default {
   components: {
     TodoList,
-    Toast
   },
   setup() {
     const router = useRouter();

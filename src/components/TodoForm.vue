@@ -33,10 +33,10 @@
         <div class="form-group">
           <label>Body</label>
           <textarea
-            v-model="todo.body"
-            class="form-control"
-            cols="30"
-            rows="10"
+              v-model="todo.body"
+              class="form-control"
+              cols="30"
+              rows="10"
           ></textarea>
         </div>
       </div>
@@ -55,27 +55,18 @@
       Cancel
     </button>
   </form>
-  <transition name="fade">
-    <Toast
-        v-if="showToast"
-        :message="toastMessage"
-        :type="toastAlertType"
-    />
-  </transition>
 </template>
 <script>
 import {useRoute, useRouter} from 'vue-router';
 import axios from '@/axios';
 import {ref, computed, onUpdated} from "vue";
 import _ from 'lodash';
-import Toast from "@/components/Toast";
 import {useToast} from "@/composables/toast";
 import Input from '@/components/Input';
 
 export default {
   components: {
     Input,
-    Toast
   },
   props: {
     editing: {
@@ -91,7 +82,7 @@ export default {
       completed: false,
       body: ''
     });
-    onUpdated(()=>{
+    onUpdated(() => {
       console.log(todo.value.subject);
     })
     const subjectError = ref('');
@@ -137,7 +128,7 @@ export default {
 
     const onSave = async () => {
       subjectError.value = '';
-      if(!todo.value.subject){
+      if (!todo.value.subject) {
         subjectError.value = 'Subject is required'
         return;
       }
@@ -149,16 +140,23 @@ export default {
           body: todo.value.body
         };
         let message = 'Saved !';
-        if(props.editing){
+        if (props.editing) {
           res = await axios.put(`todos/${todoId}`, data);
           originalTodo.value = {...res.data}
-        }else {
+        } else {
           await axios.post('todos', data);
           message = 'Created'
           todo.value.subject = '';
           todo.value.body = '';
         }
+
         triggerToast('Successfully ' + message);
+
+        if (!props.editing) {
+          router.push({
+            name: 'Todos'
+          });
+        }
       } catch (err) {
         triggerToast('Something went wrong..', 'danger');
       }
@@ -182,27 +180,12 @@ export default {
 }
 </script>
 <style scoped>
-  .text-red{
-    color: red;
-  }
-  .form-group{
-    margin-bottom: 15px;
-  }
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: all 0.5s ease;
-  }
+.text-red {
+  color: red;
+}
 
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-
-  .fade-enter-to,
-  .fade-leave-from {
-    opacity: 1;
-    transform: translateY(0px);
-  }
+.form-group {
+  margin-bottom: 15px;
+}
 
 </style>
